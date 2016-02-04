@@ -1,16 +1,15 @@
-// Add some 3D data
 divisions = span //n.b. span set in mbscene_axes_setup.js
 var barw = 0.8*span/divisions
 var bard = 0.8*span/divisions // bar depth
 var k = 1
 view
   .voxel({
-    width:  drows,
-    height: dcols,
+    width:  drows1,
+    height: dcols1,
     depth: 6,
     expr: function (emit, x, y, z, t, d) {
-      var idx = x + y*drows
-      var h = dattaboy[idx]
+      var idx = x + y*drows1
+      var h = data1[idx]
       var wigglefactor = mbjlparams[divid].wigglefactor
       h += wigglefactor*Math.sin(x + y + t) // + 2*t/3)
       if (z == 0){
@@ -51,9 +50,6 @@ view
         emit(x+barw,y+bard, 0);
       }
     },
-    // rangeX: [-span, span-1.1*barw],
-    // rangeY: [-span, span-1.1*bard],
-    // axes: [1, 2],
     items: 4,
     channels: 3,
   }).swizzle({order: "xzy"}) //only used since originally setup with z as height,
