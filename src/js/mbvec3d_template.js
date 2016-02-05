@@ -1,3 +1,5 @@
+if (!mbpreserve) mbremoveall(mathbox, ["matrix", "vector"]) //reset old versions
+
 divisions = span
 var k = 1
 view

@@ -5,13 +5,13 @@ using JSON, Patchwork
 
 const mbjsdir = joinpath(dirname(Base.source_path()), "js")
 const mbjs = joinpath(mbjsdir, "mathbox-bundle.js") |> readall
+const mbjlinitjs = joinpath(mbjsdir, "mbjlinit.js") |> readall
 
 __init__() = begin
   try
       display("text/html", """<script charset="utf-8" >
-        $(mbjs)
-        var mbinstances = {}
-        var mbjlparams = {}
+        $mbjs
+        $mbjlinitjs
       </script>""")
       Patchwork.load_js_runtime()
       println("mathbox js probably loaded")

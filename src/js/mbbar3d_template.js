@@ -1,7 +1,10 @@
+if (!mbpreserve) mbremoveall(mathbox, ["voxel", "face"]) //reset old versions
+
 divisions = span //n.b. span set in mbscene_axes_setup.js
 var barw = 0.8*span/divisions
 var bard = 0.8*span/divisions // bar depth
 var k = 1
+
 view
   .voxel({
     width:  drows1,
