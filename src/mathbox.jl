@@ -1,7 +1,10 @@
 module Mathbox
 
 export bar3d, vec3d, surf
-using JSON, Patchwork
+using JSON
+using Patchwork
+
+include("patchworkpatch.jl")
 
 const mbjsdir = joinpath(dirname(Base.source_path()), "js")
 const mbjs = joinpath(mbjsdir, "mathbox-bundle.js") |> readall
@@ -9,28 +12,34 @@ const mbjlinitjs = joinpath(mbjsdir, "mbjlinit.js") |> readall
 
 __init__() = begin
   try
-      display("text/html", """<script charset="utf-8" >
-        $mbjs
-        $mbjlinitjs
-      </script>""")
       Patchwork.load_js_runtime()
-      println("mathbox js probably loaded")
-  catch
+      display("text/html", script_elem(mbjs, mbjlinitjs))
+  catch e
+      error(e)
   end
 end
 
+script_elem(jsstrs...) =
+  Elem(:script, join(jsstrs,";\n")) & Dict(:type=>"text/javascript", :charset=>"utf-8")
+
 plotdefaults = Dict(:height=>"500px", :wigglefactor=>0.0)
 
+"""
+Returns a div and a script which sets up a scene in the div with axes and a grid
+"""
 scene_setup_elem(divid, fulldivid, params) = begin
   divsetupjs = """
   var divid = "$divid"
   var fulldivid = "$fulldivid"
   """
-  [Elem(:div) & Dict(:id=>fulldivid, :style=>Dict(:height=>params[:height]));
-  Elem(:script, divsetupjs*(joinpath(mbjsdir, "mbscene_axes_setup.js") |> readall)) & Dict(:type=>"text/javascript", :charset=>"utf-8")]
+  scene_setupjs = joinpath(mbjsdir, "mbscene_axes_setup.js") |> readall
+  [Elem(:div; id=fulldivid, style=Dict(:height=>params[:height])),
+   script_elem(divsetupjs, scene_setupjs)]
 end
 
-scene_from_template{T<: Real}(data_matrices::Vector{Matrix{T}}, template::AbstractString; divid=randstring(12), params=plotdefaults, reinit_scene=false) = begin
+scene_from_template{T<: Real}(
+    data_matrices::Vector{Matrix{T}}, template::AbstractString;
+    divid=randstring(12), params=plotdefaults, reinit_scene=false) = begin
   params = merge(plotdefaults, params)
   divid = string(divid)
   data_assignments = ""
@@ -47,19 +56,19 @@ scene_from_template{T<: Real}(data_matrices::Vector{Matrix{T}}, template::Abstra
   fulldivid = "mathbox-div-"*divid
   pwelems = scene_setup_elem(divid, fulldivid, params)
   variable_assignments = """
-    $data_assignments
-    var divid = "$divid"
-    var mathbox = mbinstances[divid]
-    var view = mbinstances["view"+divid]
-    mbjlparams[divid] = $(params |> json)
-  """
+$data_assignments
+var divid = "$divid"
+var mathbox = mbinstances[divid]
+var view = mbinstances["view"+divid]
+mbjlparams[divid] = $(params |> json)
+"""
   script_contents = """
-    (function mbdiv$divid(){
-      $variable_assignments
-      $template_jsstr
-    })()
-  """
-  push!(pwelems, Elem(:script, script_contents) & Dict(:type=>"text/javascript", :charset=>"utf-8", :id=>randstring(12)))
+(function mbdiv$divid(){
+  $variable_assignments
+  $template_jsstr
+})()
+"""
+  push!(pwelems, script_elem(script_contents))
   Elem(:div, pwelems)
 end
 

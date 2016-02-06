@@ -4,7 +4,7 @@ divisions = span
 var k = 1
 view
   .matrix({
-    width:  drows1,
+    width:  drows1/3,
     height: dcols1,
     expr: function (emit, x, y, t, d) {
       var idx = x + y*drows1
