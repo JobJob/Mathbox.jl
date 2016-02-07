@@ -19,10 +19,6 @@ Currently vaguely supports:
 
     Pkg.clone("https://github.com/JobJob/Mathbox.jl")
 
-    #if you're having problems, try:
-    Pkg.checkout("Patchwork")
-    Pkg.checkout("Interact")
-
 ## Usage
 
 Example Jupyter notebook(s) in `examples/` folder
