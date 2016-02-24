@@ -4,7 +4,7 @@ divisions = span
 
 var d1dims = 3
 var mbjl_loop = true
-var vec_trails = 3
+var vec_trails = 1
 var firstidx = 0
 var lastidx = 0
 var last_valid_baseidx = data1.length - 6
@@ -19,7 +19,7 @@ view
     expr: function (emit, x, y, t, d) {
       var idx = x + y*drows1 // baseidx(x,y,t)
       if (idx <= last_valid_baseidx && idx >= firstidx && idx <= lastidx){
-        if (vec_trails >= 0 && incr_count > vec_trails && idx == firstidx){
+        if (vec_trails > 0 && incr_count > vec_trails && idx == firstidx){
           emit(
             mbbasic_lerp(data1[idx],   data1[idx+3], lerpfraction),
             mbbasic_lerp(data1[idx+1], data1[idx+4], lerpfraction),
@@ -54,11 +54,21 @@ view
     channels: 3,
   });
 
+view.matrix({
+  width:  drows1/d1dims,
+  height: dcols1,
+  expr: function(emit, x, y, t, d){
+    var idx = x + y*drows1 // baseidx(x,y,t)
+    colr = colors[(idx/3)%colors.length]
+    emit(colr.r, colr.g, colr.b, 1)
+  }
+})
 // Draw a vector
 view.vector({
   color: 0x3090FF,
+  colors: "<",
   width: 3,
-  points: "<",
+  points: "<<",
   end: true,
 })
 
