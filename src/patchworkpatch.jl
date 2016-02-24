@@ -1,6 +1,7 @@
 #special casing script tags so that they get removed and re-added on a change
 #this ensures any js updates get run. We need this for Interact to work.
-println(STDERR, "Overwriting Patchwork's diff!(Elem{ns, tag}, Elem{ns, tag}, Any Any) - you can ignore the warning below.\n")
+#see: https://github.com/shashi/Patchwork.jl/issues/14
+println(STDERR, "Mathbox.jl will now overwrite Patchwork's diff!(Elem{ns, tag}, Elem{ns, tag}, Any, Any) - you can ignore the warning below.\n")
 
 import Patchwork: Patch, DictDiff, Overwrite, diff!
 
