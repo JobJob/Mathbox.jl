@@ -22,7 +22,7 @@ end
 script_elem(jsstrs...) =
   Elem(:script, join(jsstrs,";\n")) & Dict(:type=>"text/javascript", :charset=>"utf-8")
 
-plotdefaults = Dict(:height=>"500px", :wigglefactor=>0.0)
+plotdefaults = Dict(:height=>"500px", :wigglefactor=>0.0, :xrange=>[0,10], :yrange=>[0,10])
 
 """
 Returns a div and a script which sets up a scene in the div with axes and a grid
@@ -52,6 +52,11 @@ scene_from_template{T<: Real}(
       var dcols$i = $ncols
     """
   end
+  #ranges used for surface plots only afaik
+  data_assignments *= """
+    var dxrange = $(params[:xrange] |> json)
+    var dyrange = $(params[:yrange] |> json)
+  """
   template_jsstr = joinpath(mbjsdir, template) |> readall
   fulldivid = "mathbox-div-"*divid
   pwelems = scene_setup_elem(divid, fulldivid, params)

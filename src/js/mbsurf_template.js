@@ -3,11 +3,13 @@ if (!mbpreserve) mbremoveall(mathbox, ["matrix", "surface"]) //reset old version
 divisions = span
 var k = 1
 view
-  .matrix({
+  .area({
     width:  drows1,
     height: dcols1,
-    expr: function (emit, x, y, t, d) {
-      var idx = x + y*drows1
+    rangeX: dxrange,
+    rangeY: dyrange,
+    expr: function (emit, x, y, i, j, t, d) {
+      var idx = i + j*drows1
       var h = data1[idx]
       var wigglefactor = mbjlparams[divid].wigglefactor
       h += wigglefactor*Math.sin(x + y + t) // + 2*t/3)
