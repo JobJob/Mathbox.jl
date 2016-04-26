@@ -20,3 +20,9 @@ var mbpreserve = false
 mbjlparams[divid] = {
     wigglefactor: 1
 }
+
+var d1dims = 3
+var mbjl_loop = true
+var vec_trails = 10
+var end_wait_cycles = 4
+var vecs_per_sec = 1

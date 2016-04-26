@@ -2,12 +2,6 @@ if (!mbpreserve) mbremoveall(mathbox, ["matrix", "vector"]) //reset old versions
 
 divisions = span
 
-var d1dims = 3
-var mbjl_loop = true
-var vec_trails = 10
-var end_wait_cycles = 4
-var vecs_per_sec = 1
-
 var end_cycles_waited = 0
 var firstidx = 0
 var lastidx = 0
@@ -74,14 +68,30 @@ view
     channels: 3,
   });
 
+
+view.readback({
+  expr: function (x, y, z, w, i, j, k, l) {
+    console.log(x,y,z,w)
+  }
+})
+//gradient of color to clarify of path direction
+//colors specified in mbjlinit.js
+var colr = colors[3]
 view.matrix({
   width:  drows1/d1dims,
   height: dcols1,
   expr: function(emit, x, y, t, d){
     var idx = x + y*drows1 // baseidx(x,y,t)
-    colr = colors[(idx/3)%colors.length]
-    emit(colr.r, colr.g, colr.b, 1)
-  }
+    // colr = colors[(idx/3)%colors.length]
+    if(idx >= firstidx && idx <= lastidx){
+      total_vecs_displayed = (lastidx-firstidx)/3
+      curvec = (idx-firstidx)/3
+      alpha = mbbasic_lerp(0.25, 1, curvec/total_vecs_displayed)
+      // emit(colr.r*scale, colr.g*scale, colr.b*scale, 1)
+      emit(colr.r, colr.g, colr.b, alpha)
+    }
+  },
+  channels: 4
 })
 // Draw a vector
 view.vector({
@@ -92,6 +102,7 @@ view.vector({
   end: true,
 })
 
+//point coordinate labels
 view.
   array({
     data: data1,
