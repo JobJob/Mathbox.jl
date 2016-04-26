@@ -7,7 +7,7 @@ var mbremoveall = function mbremoveall(mb, selectors){
   selectors.forEach(function(selector){ mbremove(mb, selector) })
 }
 
-var mbbasic_lerp = function (a, b, fraction){
+var mbbasic_lerp = function mbbasic_lerp(a, b, fraction){
   return a + fraction*(b-a)
 }
 
