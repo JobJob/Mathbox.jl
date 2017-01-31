@@ -1767,7 +1767,7 @@ THREE.Vector3.prototype = {
 		return this;
 
 	},
-	
+
 	subScalar: function ( s ) {
 
 		this.x -= s;
@@ -2408,7 +2408,7 @@ THREE.Vector3.prototype = {
 	},
 
 	setFromMatrixColumn: function ( index, matrix ) {
-		
+
 		var offset = index * 4;
 
 		var me = matrix.elements;
@@ -4589,17 +4589,17 @@ THREE.Matrix4.prototype = {
 	},
 
 	extractBasis: function ( xAxis, yAxis, zAxis ) {
- 
+
 		var te = this.elements;
- 
+
 		xAxis.set( te[ 0 ], te[ 1 ], te[ 2 ] );
 		yAxis.set( te[ 4 ], te[ 5 ], te[ 6 ] );
 		zAxis.set( te[ 8 ], te[ 9 ], te[ 10 ] );
- 
+
 		return this;
- 		
+
 	},
- 
+
 	makeBasis: function ( xAxis, yAxis, zAxis ) {
 
 		this.set(
@@ -5750,7 +5750,7 @@ THREE.Ray.prototype = {
 			// in order to always return an intersect point that is in front of the ray.
 			if ( t0 < 0 ) return this.at( t1, optionalTarget );
 
-			// else t0 is in front of the ray, so return the first collision point scaled by t0 
+			// else t0 is in front of the ray, so return the first collision point scaled by t0
 			return this.at( t0, optionalTarget );
 
 		}
@@ -10899,7 +10899,7 @@ THREE.Light = function ( color ) {
 	THREE.Object3D.call( this );
 
 	this.type = 'Light';
-	
+
 	this.color = new THREE.Color( color );
 
 };
@@ -11839,7 +11839,7 @@ THREE.ImageLoader.prototype = {
 			THREE.Cache.add( url, this );
 
 			if ( onLoad ) onLoad( this );
-			
+
 			scope.manager.itemEnd( url );
 
 		}, false );
@@ -14353,7 +14353,7 @@ THREE.MeshFaceMaterial = function ( materials ) {
 	this.uuid = THREE.Math.generateUUID();
 
 	this.type = 'MeshFaceMaterial';
-	
+
 	this.materials = materials instanceof Array ? materials : [];
 
 };
@@ -14813,7 +14813,7 @@ THREE.TextureIdCount = 0;
 THREE.CubeTexture = function ( images, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy ) {
 
 	mapping = mapping !== undefined ? mapping : THREE.CubeReflectionMapping;
-	
+
 	THREE.Texture.call( this, images, mapping, wrapS, wrapT, magFilter, minFilter, format, type, anisotropy );
 
 	this.images = images;
@@ -15326,7 +15326,7 @@ THREE.Mesh = function ( geometry, material ) {
 	THREE.Object3D.call( this );
 
 	this.type = 'Mesh';
-	
+
 	this.geometry = geometry !== undefined ? geometry : new THREE.Geometry();
 	this.material = material !== undefined ? material : new THREE.MeshBasicMaterial( { color: Math.random() * 0xffffff } );
 
@@ -15818,7 +15818,7 @@ THREE.Skeleton.prototype.pose = function () {
 THREE.Skeleton.prototype.update = ( function () {
 
 	var offsetMatrix = new THREE.Matrix4();
-	
+
 	return function () {
 
 		// flatten bone matrices to array
@@ -15839,7 +15839,7 @@ THREE.Skeleton.prototype.update = ( function () {
 			this.boneTexture.needsUpdate = true;
 
 		}
-		
+
 	};
 
 } )();
@@ -24687,7 +24687,7 @@ THREE.WebGLShader = ( function () {
 
 	return function ( gl, type, string ) {
 
-		var shader = gl.createShader( type ); 
+		var shader = gl.createShader( type );
 
 		gl.shaderSource( shader, string );
 		gl.compileShader( shader );
@@ -26913,7 +26913,7 @@ THREE.FontUtils = {
 
 THREE.FontUtils.generateShapes = function ( text, parameters ) {
 
-	// Parameters 
+	// Parameters
 
 	parameters = parameters || {};
 
@@ -27691,7 +27691,7 @@ THREE.CurvePath = function () {
 
 	this.curves = [];
 	this.bends = [];
-	
+
 	this.autoClose = false; // Automatically closes the path
 };
 
@@ -27716,11 +27716,11 @@ THREE.CurvePath.prototype.closePath = function() {
 	// Add a line curve if start and end of lines are not connected
 	var startPoint = this.curves[0].getPoint(0);
 	var endPoint = this.curves[this.curves.length - 1].getPoint(1);
-	
+
 	if (! startPoint.equals(endPoint)) {
 		this.curves.push( new THREE.LineCurve(endPoint, startPoint) );
 	}
-	
+
 };
 
 // To get accurate point with reference to
@@ -28068,7 +28068,7 @@ THREE.Gyroscope.prototype.updateMatrixWorld = ( function () {
 		}
 
 	};
-	
+
 }() );
 
 // File:src/extras/core/Path.js
@@ -28451,7 +28451,7 @@ THREE.Path.prototype.getPoints = function( divisions, closedPath ) {
 			//console.log(points);
 
 			break;
-		  
+
 		case THREE.PathActions.ELLIPSE:
 
 			var aX = args[ 0 ], aY = args[ 1 ],
@@ -28654,7 +28654,7 @@ THREE.Path.prototype.toShapes = function( isCCW, noHoles ) {
 	holesFirst = isCCW ? ! holesFirst : holesFirst;
 
 	// console.log("Holes first", holesFirst);
-	
+
 	var betterShapeHoles = [];
 	var newShapes = [];
 	var newShapeHoles = [];
@@ -28680,7 +28680,7 @@ THREE.Path.prototype.toShapes = function( isCCW, noHoles ) {
 			newShapes[mainIdx] = { s: new THREE.Shape(), p: tmpPoints };
 			newShapes[mainIdx].s.actions = tmpPath.actions;
 			newShapes[mainIdx].s.curves = tmpPath.curves;
-			
+
 			if ( holesFirst )	mainIdx ++;
 			newShapeHoles[mainIdx] = [];
 
@@ -29536,7 +29536,7 @@ THREE.EllipseCurve.prototype.getPoint = function ( t ) {
 		angle = this.aStartAngle + t * deltaAngle;
 
 	}
-	
+
 	var vector = new THREE.Vector2();
 
 	vector.x = this.aX + this.xRadius * Math.cos( angle );
@@ -31245,14 +31245,14 @@ THREE.ExtrudeGeometry.prototype.addShape = function ( shape, options ) {
 	function getBevelVec( inPt, inPrev, inNext ) {
 
 		var EPSILON = 0.0000000001;
-		
+
 		// computes for inPt the corresponding point inPt' on a new contour
 		//   shiftet by 1 unit (length of normalized vector) to the left
 		// if we walk along contour clockwise, this new contour is outside the old one
 		//
 		// inPt' is the intersection of the two lines parallel to the two
 		//  adjacent edges of inPt at a distance of 1 unit on the left side.
-		
+
 		var v_trans_x, v_trans_y, shrink_by = 1;		// resulting translation vector for inPt
 
 		// good reading for geometry algorithms (here: line-line intersection)
@@ -31260,38 +31260,38 @@ THREE.ExtrudeGeometry.prototype.addShape = function ( shape, options ) {
 
 		var v_prev_x = inPt.x - inPrev.x, v_prev_y = inPt.y - inPrev.y;
 		var v_next_x = inNext.x - inPt.x, v_next_y = inNext.y - inPt.y;
-		
+
 		var v_prev_lensq = ( v_prev_x * v_prev_x + v_prev_y * v_prev_y );
-		
+
 		// check for colinear edges
 		var colinear0 = ( v_prev_x * v_next_y - v_prev_y * v_next_x );
-		
+
 		if ( Math.abs( colinear0 ) > EPSILON ) {		// not colinear
-			
+
 			// length of vectors for normalizing
-	
+
 			var v_prev_len = Math.sqrt( v_prev_lensq );
 			var v_next_len = Math.sqrt( v_next_x * v_next_x + v_next_y * v_next_y );
-			
+
 			// shift adjacent points by unit vectors to the left
-	
+
 			var ptPrevShift_x = ( inPrev.x - v_prev_y / v_prev_len );
 			var ptPrevShift_y = ( inPrev.y + v_prev_x / v_prev_len );
-			
+
 			var ptNextShift_x = ( inNext.x - v_next_y / v_next_len );
 			var ptNextShift_y = ( inNext.y + v_next_x / v_next_len );
-	
+
 			// scaling factor for v_prev to intersection point
-	
+
 			var sf = (  ( ptNextShift_x - ptPrevShift_x ) * v_next_y -
 						( ptNextShift_y - ptPrevShift_y ) * v_next_x    ) /
 					  ( v_prev_x * v_next_y - v_prev_y * v_next_x );
-	
+
 			// vector from inPt to intersection point
-	
+
 			v_trans_x = ( ptPrevShift_x + v_prev_x * sf - inPt.x );
 			v_trans_y = ( ptPrevShift_y + v_prev_y * sf - inPt.y );
-	
+
 			// Don't normalize!, otherwise sharp corners become ugly
 			//  but prevent crazy spikes
 			var v_trans_lensq = ( v_trans_x * v_trans_x + v_trans_y * v_trans_y )
@@ -31300,7 +31300,7 @@ THREE.ExtrudeGeometry.prototype.addShape = function ( shape, options ) {
 			} else {
 				shrink_by = Math.sqrt( v_trans_lensq / 2 );
 			}
-			
+
 		} else {		// handle special case of colinear edges
 
 			var direction_eq = false;		// assumes: opposite
@@ -31864,7 +31864,7 @@ THREE.ShapeGeometry.prototype.addShape = function ( shape, options ) {
  * @author bhouston / http://exocortex.com
  */
 
-// points - to create a closed torus, one must use a set of points 
+// points - to create a closed torus, one must use a set of points
 //    like so: [ a, b, c, d, a ], see first is the same as last.
 // segments - the number of circumference segments to create
 // phiStart - the starting radian
@@ -32198,7 +32198,7 @@ THREE.SphereGeometry = function ( radius, widthSegments, heightSegments, phiStar
 		phiStart: phiStart,
 		phiLength: phiLength,
 		thetaStart: thetaStart,
-		thetaLength: thetaLength 
+		thetaLength: thetaLength
 	};
 
 	radius = radius || 50;
@@ -32472,7 +32472,7 @@ THREE.TorusKnotGeometry = function ( radius, tube, radialSegments, tubularSegmen
 	p = p || 2;
 	q = q || 3;
 	heightScale = heightScale || 1;
-	
+
 	var grid = new Array( radialSegments );
 	var tang = new THREE.Vector3();
 	var n = new THREE.Vector3();
@@ -33734,7 +33734,7 @@ THREE.CameraHelper.prototype.constructor = THREE.CameraHelper;
 THREE.CameraHelper.prototype.update = function () {
 
 	var geometry, pointMap;
-	
+
 	var vector = new THREE.Vector3();
 	var camera = new THREE.Camera();
 
@@ -41897,9 +41897,9 @@ THREE.MorphBlendMesh.prototype.update = function ( delta ) {
 
     // define as an anonymous module so, through path mapping, it can be
     // referenced as the "underscore" module
-    define(function() {
-      return _;
-    });
+    // define(function() {
+    //   return _;
+    // });
   }
   // check for `exports` after `define` in case a build optimizer adds an `exports` object
   else if (freeExports && freeModule) {
@@ -44591,7 +44591,7 @@ THREE.TrackballControls.prototype.constructor = THREE.TrackballControls;
  * When real vrstate is supplied, it is used.
  * When empty vrstate {} is supplied, device orientation is used if supported, for Cardboard VR mode.
  * When no vrstate (null/undef) is supplied, orbit controls are used (mouse/touch), for regular interaction
- * 
+ *
  * @author unconed / https://github.com/unconed
  */
 
@@ -45277,7 +45277,7 @@ THREE.VRRenderer = function(renderer, hmd) {
  * When real vrstate is supplied, it is used.
  * When empty vrstate {} is supplied, device orientation is used if supported, for Cardboard VR mode.
  * When no vrstate (null/undef) is supplied, orbit controls are used (mouse/touch), for regular interaction
- * 
+ *
  * @author unconed / https://github.com/unconed
  */
 
@@ -47308,7 +47308,7 @@ var PSEUDOSTART = 'pseudo-start'
 function tokenize() {
   var escaped = false
     , gathered = []
-    , state = READY 
+    , state = READY
     , data = []
     , idx = 0
     , stream
@@ -47479,11 +47479,11 @@ function tokenize() {
     } else if(c === ')') {
       --depth
     }
-    
+
     if(!depth) {
       gathered.pop()
       stream.queue({
-          type: rhs 
+          type: rhs
         , data: lhs + '(' + gathered.join('') + ')'
       })
 
@@ -47492,7 +47492,7 @@ function tokenize() {
       gathered.length = 0
     }
 
-    return 
+    return
   }
 
   function state_attr_start() {
@@ -47581,7 +47581,7 @@ function tokenize() {
     lhs = rhs = cmp = null
     gathered.length = 0
 
-    return 
+    return
   }
 
   function state_gather(quietly) {
@@ -50960,7 +50960,7 @@ Writable.prototype.write = function(chunk, encoding, cb) {
     chunk = new Buffer(chunk);
   if (isArrayBuffer(chunk) && typeof Uint8Array !== 'undefined')
     chunk = new Buffer(new Uint8Array(chunk));
-  
+
   if (Buffer.isBuffer(chunk))
     encoding = 'buffer';
   else if (!encoding)
@@ -52938,7 +52938,7 @@ exports.transformComposer = function() {
 
 /*
  Generate equally spaced ticks in a range at sensible positions.
- 
+
  @param min/max - Minimum and maximum of range
  @param n - Desired number of ticks in range
  @param unit - Base unit of scale (e.g. 1 or π).
@@ -53929,7 +53929,7 @@ THREE.Bootstrap.registerPlugin('mathbox', {
  - Attributes can be computed from both public or private expressions with .bind(key, false/true)
  - Expressions are time-dependent, can be time-travelled with .evaluate()
  - This enables continous simulation and data logging despite choppy animation updates
- 
+
   Actual type and trait definitions are injected from Primitives
  */
 var Attributes, Data, shallowCopy;
@@ -54570,7 +54570,7 @@ language = null;
 /*
 
   Model that wraps a root node and its children.
-  
+
   Monitors adds, removals and ID/class changes.
   Enables CSS selectors, both querying and watching.
 
@@ -59745,23 +59745,23 @@ Join = (function(superClass) {
 
     /*
     Calculate index transform
-    
+
     order: wxyz
     length: 3
     overlap: 1
-    
+
     axis: w
     index: 0
     rest: 00xy
-    
+
     axis: x
     index: 1
     rest: w00y
-    
+
     axis: y
     index: 2
     rest: wx00
-    
+
     axis: z
     index: 3
     rest: wxy0
@@ -60976,29 +60976,29 @@ Split = (function(superClass) {
 
     /*
     Calculate index transform
-    
+
     order: wxyz
     length: 3
     overlap: 1
-    
+
     axis: w
     index: 0
     split: wx
     rest:  0yz0
            s
-    
+
     axis: x
     index: 1
     split: xy
     rest:  w0z0
             s
-    
+
     axis: y
     index: 2
     split: yz
     rest:  wx00
              s
-    
+
     axis: z
     index: 3
     split: z0
@@ -69329,16 +69329,16 @@ ClipGeometry = require('./clipgeometry');
 /*
 (flat) Triangle fans arranged in items, columns and rows
 
-+-+     +-+     +-+     +-+     
-|\\\    |\\\    |\\\    |\\\    
-+-+-+   +-+-+   +-+-+   +-+-+   
++-+     +-+     +-+     +-+
+|\\\    |\\\    |\\\    |\\\
++-+-+   +-+-+   +-+-+   +-+-+
 
-+-+     +-+     +-+     +-+     
-|\\\    |\\\    |\\\    |\\\    
-+-+-+   +-+-+   +-+-+   +-+-+   
++-+     +-+     +-+     +-+
+|\\\    |\\\    |\\\    |\\\
++-+-+   +-+-+   +-+-+   +-+-+
 
-+-+     +-+     +-+     +-+     
-|\\\    |\\\    |\\\    |\\\    
++-+     +-+     +-+     +-+
+|\\\    |\\\    |\\\    |\\\
 +-+-+   +-+-+   +-+-+   +-+-+
  */
 
@@ -69999,16 +69999,16 @@ ClipGeometry = require('./clipgeometry');
 /*
 Triangle strips arranged in items, columns and rows
 
-+--+--+--+  +--+--+--+  +--+--+--+  +--+--+--+  
-| /| /| /   | /| /| /   | /| /| /   | /| /| / 
-+--+--+/    +--+--+/    +--+--+/    +--+--+/  
++--+--+--+  +--+--+--+  +--+--+--+  +--+--+--+
+| /| /| /   | /| /| /   | /| /| /   | /| /| /
++--+--+/    +--+--+/    +--+--+/    +--+--+/
 
-+--+--+--+  +--+--+--+  +--+--+--+  +--+--+--+  
-| /| /| /   | /| /| /   | /| /| /   | /| /| / 
-+--+--+/    +--+--+/    +--+--+/    +--+--+/  
++--+--+--+  +--+--+--+  +--+--+--+  +--+--+--+
+| /| /| /   | /| /| /   | /| /| /   | /| /| /
++--+--+/    +--+--+/    +--+--+/    +--+--+/
 
-+--+--+--+  +--+--+--+  +--+--+--+  +--+--+--+  
-| /| /| /   | /| /| /   | /| /| /   | /| /| / 
++--+--+--+  +--+--+--+  +--+--+--+  +--+--+--+
+| /| /| /   | /| /| /   | /| /| /   | /| /| /
 +--+--+/    +--+--+/    +--+--+/    +--+--+/
  */
 
@@ -73989,7 +73989,7 @@ exports.transformComposer = function() {
 
 /*
  Generate equally spaced ticks in a range at sensible positions.
- 
+
  @param min/max - Minimum and maximum of range
  @param n - Desired number of ticks in range
  @param unit - Base unit of scale (e.g. 1 or π).
@@ -75597,7 +75597,7 @@ module.exports = Join;
 },{"./block":185}],191:[function(require,module,exports){
 
 /*
-  Cache decorator  
+  Cache decorator
   Fetches snippets once, clones for reuse
   Inline code is hashed to avoid bloat
  */
@@ -75641,7 +75641,7 @@ Visualize = require('../visualize');
 
 /*
   Chainable factory
-  
+
   Exposes methods to build a graph incrementally
  */
 
@@ -76135,12 +76135,12 @@ exports.hash = require('./hash');
 
 /*
   Snippet library
-  
+
   Takes:
     - Hash of snippets: named library
     - (name) -> getter: dynamic lookup
     - nothing:          no library, only pass in inline source code
-  
+
   If 'name' contains any of "{;(#" it is assumed to be direct GLSL code.
  */
 var library;
@@ -78162,7 +78162,7 @@ debug = false;
 
 /*
   Program linkage layout
-  
+
   Entry points are added to its dependency graph
   Callbacks are linked either with a go-between function
   or a #define if the signatures are identical.
@@ -78239,7 +78239,7 @@ Priority = require('./priority');
 
 /*
  Callback linker
- 
+
  Imports given modules and generates linkages for registered callbacks.
 
  Builds composite program with single module as exported entry point
@@ -78432,13 +78432,13 @@ assemble = require('./assemble');
 
 /*
   Program assembly model
-  
+
   Snippets are added to its queue, registering calls and code includes.
   Calls are de-duped and scheduled at the earliest point required for correct data flow.
-  
+
   When assemble() is called, it builds a main() function to
   execute all calls in final order.
-  
+
   The result is a new instance of Snippet that acts as if it
   was parsed from the combined source of the component
   nodes.
@@ -79281,7 +79281,7 @@ prefix('(', function() {
   this.type = 'group'
   this.children = [expression(0)]
   advance(')')
-  return this 
+  return this
 })
 prefix('++')
 prefix('--')
@@ -79338,7 +79338,7 @@ function symbol(id, binding_power) {
     }
   } else {
     sym = Object.create(original_symbol)
-    sym.id = id 
+    sym.id = id
     sym.lbp = binding_power
     symbol_table[id] = sym
   }
@@ -79522,7 +79522,7 @@ var token_map = {
 }
 
 // map of stmt types to human
-var stmt_type = _ = [ 
+var stmt_type = _ = [
     'ident'
   , 'stmt'
   , 'stmtlist'
@@ -79657,7 +79657,7 @@ function parser() {
       case QUANTIFIER: parse_quantifier(); break
     }
   }
-  
+
   function end(tokens) {
     if(arguments.length) {
       write(tokens)
@@ -79719,7 +79719,7 @@ function parser() {
       console.log(pad, '/'+_node.type)
     }
 
-    if(check.length) { 
+    if(check.length) {
       if(typeof check[0] === 'function') {
         emit = check[0](_node)
       } else if(okay !== undefined) {
@@ -79729,8 +79729,8 @@ function parser() {
       emit = true
     }
 
-    if(emit) stream.emit('data', _node) 
-  
+    if(emit) stream.emit('data', _node)
+
     node = _node.parent
     return _node
   }
@@ -79756,7 +79756,7 @@ function parser() {
         return
         default:
           state.unshift(stmt())
-        return 
+        return
       }
     }
   }
@@ -79771,7 +79771,7 @@ function parser() {
     }
     switch(token.type) {
       case 'eof': return state.shift()
-      case 'keyword': 
+      case 'keyword':
         switch(token.data) {
           case 'for': return state.unshift(forstmt());
           case 'if': return state.unshift(ifstmt());
@@ -79830,7 +79830,7 @@ function parser() {
           state.unshift(keyword())
           return Advance
         } else {
-          return unexpected('`invariant` is not allowed here') 
+          return unexpected('`invariant` is not allowed here')
         }
       } else {
         state.fake(mknode(PLACEHOLDER, {data: '', position: token.position}))
@@ -79841,10 +79841,10 @@ function parser() {
     function storage_or_not() {
       if(is_storage(token)) {
         if(stmt.flags & DECL_ALLOW_STORAGE) {
-          state.unshift(keyword()) 
+          state.unshift(keyword())
           return Advance
         } else {
-          return unexpected('storage is not allowed here') 
+          return unexpected('storage is not allowed here')
         }
       } else {
         state.fake(mknode(PLACEHOLDER, {data: '', position: token.position}))
@@ -79855,10 +79855,10 @@ function parser() {
     function parameter_or_not() {
       if(is_parameter(token)) {
         if(!(stmt.flags & DECL_NO_INOUT)) {
-          state.unshift(keyword()) 
+          state.unshift(keyword())
           return Advance
         } else {
-          return unexpected('parameter is not allowed here') 
+          return unexpected('parameter is not allowed here')
         }
       } else {
         state.fake(mknode(PLACEHOLDER, {data: '', position: token.position}))
@@ -79895,7 +79895,7 @@ function parser() {
       if(lookup) {
         state.fake(Object.create(lookup))
         tokens.shift()
-        return Advance  
+        return Advance
       }
       return unexpected('expected user defined type, struct or keyword, got '+token.data)
     }
@@ -79923,7 +79923,7 @@ function parser() {
       }
 
       stmt.collected_name = tokens.shift()
-      return Advance      
+      return Advance
     }
 
     function maybe_lparen() {
@@ -79931,7 +79931,7 @@ function parser() {
         tokens.unshift(stmt.collected_name)
         delete stmt.collected_name
         state.unshift(fn())
-        return stmt.stage + 2 
+        return stmt.stage + 2
       }
       return Advance
     }
@@ -79947,7 +79947,7 @@ function parser() {
       return state.shift()
     }
   }
-  
+
   function parse_decllist() {
     // grab ident
 
@@ -80085,11 +80085,11 @@ function parser() {
     n.expecting = [].slice.call(arguments)
     return n
   }
-  
+
   function keyword(default_value) {
     var t = token
     if(default_value) {
-      t = {'type': '(implied)', data: '(default)', position: t.position} 
+      t = {'type': '(implied)', data: '(default)', position: t.position}
     }
     return mknode(KEYWORD, t, node)
   }
@@ -80106,7 +80106,7 @@ function parser() {
 
   function assert(type, data) {
     return 1,
-      assert_null_string_or_array(type, token.type) && 
+      assert_null_string_or_array(type, token.type) &&
       assert_null_string_or_array(data, token.data)
   }
 
@@ -80143,7 +80143,7 @@ function parser() {
       if(result === Advance) return ++current.stage
       if(result === undefined) return
       current.stage = result
-    } 
+    }
   }
 
   function advance(op, t) {
@@ -80233,13 +80233,13 @@ function parser() {
     parse_precision =
         stative(
           function() { return tokens.shift(), Advance }
-        , function() { 
+        , function() {
             return assert(
             'keyword', ['lowp', 'mediump', 'highp']
-            ) && (state.unshift(keyword()), Advance) 
+            ) && (state.unshift(keyword()), Advance)
           }
         , function() { return (state.unshift(keyword()), Advance) }
-        , function() { return state.shift() } 
+        , function() { return state.shift() }
         )
 
     parse_quantifier =
@@ -80250,7 +80250,7 @@ function parser() {
         , function() { return state.shift() }
         )
 
-    parse_forloop = 
+    parse_forloop =
         stative(
           advance('for', 'keyword')
         , advance('(')
@@ -80260,7 +80260,7 @@ function parser() {
               if(!(lookup = state.scope.find(token.data))) {
                 lookup = state.create_node()
               }
-             
+
               if(lookup.parent.type === 'struct') {
                 return state.unshift(decl(DECL_STATEMENT)), Advance
               }
@@ -80280,7 +80280,7 @@ function parser() {
         , popstmt()
         )
 
-    parse_if = 
+    parse_if =
         stative(
           advance('if', 'keyword')
         , advance('(')
@@ -80305,7 +80305,7 @@ function parser() {
             if(token.data === ';') return Advance
             return state.unshift(expr(';')), Advance
           }
-        , function() { tokens.shift(), popstmt()() } 
+        , function() { tokens.shift(), popstmt()() }
         )
 
     parse_whileloop =
@@ -80320,7 +80320,7 @@ function parser() {
         , popstmt()
         )
 
-    parse_dowhileloop = 
+    parse_dowhileloop =
       stative(
         advance('do', 'keyword')
       , maybe_stmtlist(3)
@@ -80357,7 +80357,7 @@ function parser() {
       , advance('(')
       , function() { return state.unshift(fnargs()), Advance }
       , advance(')')
-      , function() { 
+      , function() {
           // forward decl
           if(token.data === ';') {
             return state.scope.exit(), state.shift(), state.shift()
@@ -80367,7 +80367,7 @@ function parser() {
       , advance('{')
       , advance_stmtlist()
       , advance('}')
-      , function() { state.scope.exit(); return Advance } 
+      , function() { state.scope.exit(); return Advance }
       , function() { return state.shift(), state.shift(), state.shift() }
       )
 
@@ -80471,8 +80471,8 @@ var literals = require('./lib/literals')
   , builtins = require('./lib/builtins')
 
 var NORMAL = 999          // <-- never emitted
-  , TOKEN = 9999          // <-- never emitted 
-  , BLOCK_COMMENT = 0 
+  , TOKEN = 9999          // <-- never emitted
+  , BLOCK_COMMENT = 0
   , LINE_COMMENT = 1
   , PREPROCESSOR = 2
   , OPERATOR = 3
@@ -80482,7 +80482,7 @@ var NORMAL = 999          // <-- never emitted
   , BUILTIN = 7
   , KEYWORD = 8
   , WHITESPACE = 9
-  , EOF = 10 
+  , EOF = 10
   , HEX = 11
 
 var map = [
@@ -80505,7 +80505,7 @@ function tokenize() {
 
   var i = 0
     , total = 0
-    , mode = NORMAL 
+    , mode = NORMAL
     , c
     , last
     , content = []
@@ -80539,7 +80539,7 @@ function tokenize() {
     while(c = input[i], i < len) switch(mode) {
       case BLOCK_COMMENT: i = block_comment(); break
       case LINE_COMMENT: i = line_comment(); break
-      case PREPROCESSOR: i = preprocessor(); break 
+      case PREPROCESSOR: i = preprocessor(); break
       case OPERATOR: i = operator(); break
       case INTEGER: i = integer(); break
       case HEX: i = hex(); break
@@ -80551,7 +80551,7 @@ function tokenize() {
 
     total += i
     input = input.slice(i)
-  } 
+  }
 
   function end(chunk) {
     if(content.length) {
@@ -80664,7 +80664,7 @@ function tokenize() {
 
     if(c === '.' && content.length) {
       while(determine_operator(content));
-      
+
       mode = FLOAT
       return i
     }
@@ -80695,13 +80695,13 @@ function tokenize() {
 
     do {
       idx = operators.indexOf(buf.slice(0, buf.length + j).join(''))
-      if(idx === -1) { 
+      if(idx === -1) {
         j -= 1
         k -= 1
         if (k < 0) return 0
         continue
       }
-      
+
       token(operators[idx])
 
       start += operators[idx].length
@@ -80719,7 +80719,7 @@ function tokenize() {
 
     content.push(c)
     last = c
-    return i + 1    
+    return i + 1
   }
 
   function integer() {

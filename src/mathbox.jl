@@ -7,8 +7,8 @@ using Patchwork
 include("patchworkpatch.jl")
 
 const mbjsdir = joinpath(dirname(Base.source_path()), "js")
-const mbjs = joinpath(mbjsdir, "mathbox-bundle.js") |> readall
-const mbjlinitjs = joinpath(mbjsdir, "mbjlinit.js") |> readall
+const mbjs = joinpath(mbjsdir, "mathbox-bundle.js") |> readstring
+const mbjlinitjs = joinpath(mbjsdir, "mbjlinit.js") |> readstring
 
 __init__() = begin
   try
@@ -32,7 +32,7 @@ scene_setup_elem(divid, fulldivid, params) = begin
   var divid = "$divid"
   var fulldivid = "$fulldivid"
   """
-  scene_setupjs = joinpath(mbjsdir, "mbscene_axes_setup.js") |> readall
+  scene_setupjs = joinpath(mbjsdir, "mbscene_axes_setup.js") |> readstring
   [Elem(:div; id=fulldivid, style=Dict(:height=>params[:height])),
    script_elem(divsetupjs, scene_setupjs)]
 end
@@ -52,7 +52,7 @@ scene_from_template{T<: Real}(
       var dcols$i = $ncols
     """
   end
-  template_jsstr = joinpath(mbjsdir, template) |> readall
+  template_jsstr = joinpath(mbjsdir, template) |> readstring
   fulldivid = "mathbox-div-"*divid
   pwelems = scene_setup_elem(divid, fulldivid, params)
   variable_assignments = """
